@@ -38,6 +38,49 @@ body {
 }
 
 /* Screen Effects */
+.screen-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 98;
+    opacity: 0;
+    transition: opacity 1s ease, background 1s ease;
+}
+
+/* MAG-FIELD unstable flicker */
+.mag-unstable {
+    color: var(--danger) !important;
+    animation: mag-flicker 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes mag-flicker {
+    0% {
+        opacity: 1;
+        text-shadow: 0 0 8px var(--danger);
+    }
+
+    25% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+        text-shadow: 0 0 12px var(--danger);
+    }
+
+    75% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 5px var(--danger);
+    }
+}
+
 .scanlines {
     position: fixed;
     top: 0;
@@ -380,10 +423,40 @@ body {
 }
 
 .arc-reactor.warning .ring {
-    animation-duration: 4s;
+    animation-duration: 2s;
 }
 
-/* Spin faster on max cap */
+/* Danger state - energy depleted */
+.arc-reactor.danger .core {
+    background: radial-gradient(circle, #fff 0%, var(--danger) 20%, var(--bg-dark) 80%);
+    box-shadow: 0 0 80px var(--danger-glow), inset 0 0 40px #fff;
+}
+
+.arc-reactor.danger .ring-1 {
+    border-top-color: var(--danger);
+    border-bottom-color: var(--danger);
+    box-shadow: inset 0 0 20px rgba(255, 0, 60, 0.3), 0 0 20px rgba(255, 0, 60, 0.3);
+}
+
+.arc-reactor.danger .ring-2,
+.arc-reactor.danger .ring-4 {
+    border-color: var(--danger);
+}
+
+.arc-reactor.danger .ring-3 {
+    border-left-color: var(--danger);
+    border-right-color: var(--danger);
+}
+
+.arc-reactor.danger .core-content {
+    text-shadow: 0 0 10px var(--danger), 0 0 20px var(--danger);
+    color: #fff;
+}
+
+.arc-reactor.danger .ring {
+    animation-duration: 0.5s;
+}
+
 
 /* Right Panel - Subsystems */
 .subsystem-card {
