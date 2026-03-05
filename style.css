@@ -26,8 +26,8 @@ body {
     background-color: var(--bg-dark);
     color: var(--primary);
     font-family: var(--font-main);
-    overflow: hidden;
-    height: 100vh;
+    overflow: auto;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -111,14 +111,14 @@ body {
 
 .hud-wrapper {
     width: 95vw;
-    height: 90vh;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     z-index: 10;
     position: relative;
     border: 1px solid var(--primary-dim);
     box-shadow: 0 0 30px var(--primary-dim), inset 0 0 20px var(--primary-dim);
-    padding: 20px;
+    padding: clamp(10px, 2vw, 20px);
     background: var(--panel-bg);
     backdrop-filter: blur(5px);
     clip-path: polygon(0 20px, 20px 0, calc(100% - 20px) 0, 100% 20px,
@@ -136,8 +136,8 @@ body {
 }
 
 .main-title {
-    font-size: 2rem;
-    letter-spacing: 4px;
+    font-size: clamp(0.9rem, 2.5vw, 2rem);
+    letter-spacing: clamp(1px, 0.4vw, 4px);
     text-shadow: 0 0 10px var(--primary-glow);
     font-weight: 700;
 }
@@ -146,8 +146,8 @@ body {
 .status-label,
 .status-text {
     font-family: var(--font-mono);
-    font-size: 1.1rem;
-    letter-spacing: 2px;
+    font-size: clamp(0.7rem, 1.2vw, 1.1rem);
+    letter-spacing: clamp(1px, 0.2vw, 2px);
 }
 
 .status-box {
@@ -179,7 +179,8 @@ body {
 .dashboard {
     display: flex;
     flex: 1;
-    gap: 30px;
+    gap: clamp(10px, 2vw, 30px);
+    flex-wrap: wrap;
 }
 
 .panel {
@@ -214,11 +215,12 @@ body {
 }
 
 .side-panel {
-    flex: 1;
+    flex: 1 1 250px;
+    min-width: 0;
 }
 
 .center-panel {
-    flex: 2;
+    flex: 2 1 300px;
     align-items: center;
     justify-content: center;
     border: none;
@@ -226,9 +228,9 @@ body {
 }
 
 .panel-header {
-    font-size: 1.4rem;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+    font-size: clamp(1rem, 1.5vw, 1.4rem);
+    letter-spacing: clamp(1px, 0.2vw, 2px);
+    margin-bottom: clamp(10px, 2vw, 20px);
     text-shadow: 0 0 5px var(--primary-glow);
     border-bottom: 1px solid var(--primary-dim);
     padding-bottom: 5px;
@@ -240,10 +242,10 @@ body {
     display: flex;
     justify-content: space-between;
     font-family: var(--font-mono);
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+    margin-bottom: clamp(8px, 1.2vw, 15px);
+    font-size: clamp(0.8rem, 1.2vw, 1.1rem);
     background: rgba(0, 243, 255, 0.05);
-    padding: 10px;
+    padding: clamp(6px, 1vw, 10px);
     border-left: 3px solid var(--primary);
 }
 
@@ -294,13 +296,13 @@ body {
 
 /* Arc Reactor Center */
 .arc-reactor {
-    width: 350px;
-    height: 350px;
+    width: clamp(180px, 30vw, 350px);
+    height: clamp(180px, 30vw, 350px);
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: clamp(15px, 2vw, 30px);
     transition: all 0.5s;
 }
 
@@ -367,28 +369,28 @@ body {
 }
 
 .core-label {
-    font-size: 0.9rem;
-    letter-spacing: 2px;
+    font-size: clamp(0.6rem, 1vw, 0.9rem);
+    letter-spacing: clamp(1px, 0.2vw, 2px);
 }
 
 .core-value {
     font-family: var(--font-mono);
-    font-size: 3.5rem;
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
     font-weight: bold;
     line-height: 1;
     margin: 5px 0;
 }
 
 .core-unit {
-    font-size: 0.8rem;
-    letter-spacing: 2px;
+    font-size: clamp(0.55rem, 0.9vw, 0.8rem);
+    letter-spacing: clamp(1px, 0.2vw, 2px);
     opacity: 0.8;
 }
 
 .total-energy-display {
     font-family: var(--font-mono);
-    font-size: 1.2rem;
-    letter-spacing: 2px;
+    font-size: clamp(0.8rem, 1.3vw, 1.2rem);
+    letter-spacing: clamp(1px, 0.2vw, 2px);
 }
 
 .glow-text {
@@ -644,7 +646,7 @@ body {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    width: 280px;
+    width: clamp(160px, 22vw, 280px);
     z-index: 200;
     border: 1px solid var(--primary);
     background: rgba(2, 6, 13, 0.9);
@@ -826,5 +828,107 @@ body {
     100% {
         opacity: 0;
         transform: translateY(-30px) scale(1.3);
+    }
+}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+
+/* Tablet (<=1024px) */
+@media (max-width: 1024px) {
+    .hud-header {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .header-left,
+    .header-right {
+        flex: 1 1 auto;
+    }
+
+    .header-center {
+        order: -1;
+        flex: 1 1 100%;
+        text-align: center;
+    }
+
+    .dashboard {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .center-panel {
+        order: -1;
+    }
+
+    .side-panel {
+        flex-basis: auto;
+    }
+
+    .subsystem-card {
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+
+    .sys-name {
+        font-size: 1rem;
+    }
+
+    .value-display {
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile (<=600px) */
+@media (max-width: 600px) {
+    body {
+        align-items: flex-start;
+        padding: 5px 0;
+    }
+
+    .hud-wrapper {
+        width: 98vw;
+        clip-path: polygon(0 10px, 10px 0, calc(100% - 10px) 0, 100% 10px,
+            100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+
+    .hud-header {
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    .status-box {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+
+    .panel {
+        padding: 12px;
+    }
+
+    .alert-box {
+        padding: 10px;
+        font-size: 0.75rem;
+    }
+
+    .btn {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+
+    .btn.btn-lg {
+        width: 38px;
+        font-size: 0.8rem;
+    }
+
+    .footer-text {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+    }
+
+    .camera-feed {
+        bottom: 10px;
+        left: 10px;
     }
 }
